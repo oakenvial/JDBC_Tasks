@@ -1,3 +1,5 @@
+--liquibase formatted sql
+--changeset yulia:1
 INSERT INTO MY_NEW_APP.CUSTOMERS
 (NAME, SURNAME, AGE, PHONE_NUMBER)
 VALUES ('Anna', 'Petrova', 20, '+79991234455'),
@@ -6,6 +8,7 @@ VALUES ('Anna', 'Petrova', 20, '+79991234455'),
        ('Alexey', 'Alekseev', 10, NULL),
        ('ALEXEY', NULL, 99, NULL);
 
+--changeset yulia:2
 INSERT INTO MY_NEW_APP.ORDERS
 (DATE, CUSTOMER_ID, PRODUCT_NAME, AMOUNT)
 VALUES (NULL, 1, 'Phone', 1),
