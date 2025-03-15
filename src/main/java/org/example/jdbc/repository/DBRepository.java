@@ -1,6 +1,5 @@
 package org.example.jdbc.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,9 +15,14 @@ import java.util.stream.Collectors;
 
 @Repository
 public class DBRepository {
-    final private String scriptFileName = "select.sql";
-    @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    final private String sql;
+    final private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    public DBRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        String scriptFileName = "select.sql";
+        this.sql = DBRepository.read(scriptFileName);
+    }
 
     private static String read(String scriptFileName) {
         try (InputStream is = new ClassPathResource(scriptFileName).getInputStream();
@@ -30,12 +34,11 @@ public class DBRepository {
     }
 
     public List<String> getProductName(String name) {
-        String sql = DBRepository.read(scriptFileName);
         Map<String, String> parameters = new HashMap<>();
         parameters.put("name", name);
-        return namedParameterJdbcTemplate.query(
+        return namedParameterJdbcTemplate.queryForList(
                 sql,
                 parameters,
-                (rs, rowNum) -> rs.getString("product_name"));
+                String.class);
     }
 }
