@@ -1,5 +1,6 @@
 package org.example.jdbc.controller;
 
+import org.example.jdbc.model.Order;
 import org.example.jdbc.repository.DBRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +17,7 @@ public class ProductsController {
     }
 
     @GetMapping("/products/fetch-product")
-    public List<String> getProducts(@RequestParam String name) {
+    public List<Order> getProducts(@RequestParam String name) {
         return dbRepository.getProductName(name);
     }
 }
