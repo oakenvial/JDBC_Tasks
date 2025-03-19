@@ -1,4 +1,4 @@
-SELECT ord.PRODUCT_NAME
+SELECT ord.*
 FROM MY_NEW_APP.CUSTOMERS cust
          JOIN MY_NEW_APP.ORDERS ord
               ON ord.CUSTOMER_ID = cust.ID
